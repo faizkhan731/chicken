@@ -1,7 +1,10 @@
 const express = require("express");
+const twilio = require("twilio")
 // const FAST2SMS_API_KEY = "vJ7T5iPoMVJd1bv5VDD11DdIcbhiyg8CiAGC3ykhkFFWWZtvMpr5DmT5WKKL"; // apni Fast2SMS key env me 
 const axios = require("axios");
-   // Recipient normal phone number for call
+   // Recipient normal phone number for cal
+   // l
+  //  const twilio = require("twilio");   
 
 
    const SECRET_KEY = process.env.SECRET_KEY;
