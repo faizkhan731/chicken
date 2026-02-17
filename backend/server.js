@@ -33,11 +33,14 @@ const generateJWTAndSetCookie = (email, res) => {
 const app = express();
 const port = 5000;
 
-// ✅ Middleware
 app.use(cors({
-  origin: "http://localhost:5173", // React Vite dev server
+  origin: [
+    "http://localhost:5173",
+    "https://chicken-rouge.vercel.app"
+  ],
   credentials: true
 }));
+
 app.use(express.json());
 app.use(cookieParser());
 
