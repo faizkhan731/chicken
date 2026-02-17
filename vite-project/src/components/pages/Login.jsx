@@ -39,13 +39,13 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/login",
+        "https://chicken-1-hee6.onrender.com/login",
         { email, password },
-        { withCredentials: true }
+        { withCredentials: true },
       );
 
       if (res.data.success) {
-        console.log("User from backend:", res.data.user); 
+        console.log("User from backend:", res.data.user);
         login({ ...res.data.user, token: res.data.token });
 
         navigate("/");

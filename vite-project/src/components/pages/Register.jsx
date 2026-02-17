@@ -22,12 +22,15 @@ const Register = () => {
       return;
     }
     try {
-      const res = await axios.post("http://localhost:5000/register", {
-        name,
-        phone,
-        email,
-        password,
-      });
+      const res = await axios.post(
+        "https://chicken-1-hee6.onrender.com/register",
+        {
+          name,
+          phone,
+          email,
+          password,
+        },
+      );
 
       if (res.data.success) {
         alert("Registration successful");

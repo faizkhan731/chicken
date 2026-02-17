@@ -13,7 +13,7 @@ export default function Orders() {
       return;
     }
 
-    fetch(`http://localhost:5000/api/orders/${user.phone_number}`)
+    fetch(`https://chicken-1-hee6.onrender.com/api/orders/${user.phone_number}`)
       .then((res) => res.json())
       .then((data) => setOrders(data))
       .catch((err) => console.error(err));
@@ -154,7 +154,7 @@ export default function Orders() {
                                     day: "numeric",
                                     month: "short",
                                     year: "numeric",
-                                  }
+                                  },
                                 )}
                               </span>
                             </div>
@@ -165,7 +165,7 @@ export default function Orders() {
                                   {
                                     hour: "2-digit",
                                     minute: "2-digit",
-                                  }
+                                  },
                                 )}
                               </span>
                             </div>
@@ -296,7 +296,7 @@ export default function Orders() {
                                   day: "numeric",
                                   month: "short",
                                   year: "numeric",
-                                }
+                                },
                               )}
                             </div>
                             <div className="text-xs text-gray-500">
@@ -305,7 +305,7 @@ export default function Orders() {
                                 {
                                   hour: "2-digit",
                                   minute: "2-digit",
-                                }
+                                },
                               )}
                             </div>
                           </div>

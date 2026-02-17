@@ -30,11 +30,14 @@ export const AuthProvider = ({ children }) => {
           return;
         }
 
-        const response = await axios.get("http://localhost:5000/verify-token", {
-          headers: {
-            Authorization: `Bearer ${token}`,
+        const response = await axios.get(
+          "https://chicken-1-hee6.onrender.com//verify-token",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        });
+        );
 
         if (response.data.valid) {
           setIsAuthenticated(true);
@@ -89,14 +92,14 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       await axios.post(
-        "http://localhost:5000/logout",
+        "https://chicken-1-hee6.onrender.com/logout",
         {},
         {
           withCredentials: true,
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
+        },
       );
     } catch (error) {
       console.error("Logout error:", error);

@@ -64,7 +64,7 @@ const Buy = () => {
     }
 
     axios
-      .get("http://localhost:5000/api/order/status", {
+      .get("https://chicken-1-hee6.onrender.com/api/order/status", {
         withCredentials: true,
       })
       .then((res) => {
@@ -73,7 +73,7 @@ const Buy = () => {
           const orderTime = new Date(order.orderTime).getTime();
           const now = Date.now();
           const diffSeconds = Math.floor(
-            (1 * 60 * 1000 - (now - orderTime)) / 1000
+            (1 * 60 * 1000 - (now - orderTime)) / 1000,
           );
           if (diffSeconds > 0) {
             setCountdown(diffSeconds);
@@ -126,7 +126,7 @@ const Buy = () => {
 
     if (selectedArea === "other") {
       alert(
-        "Sorry! We currently deliver only to the listed areas. Please call us for special delivery arrangements."
+        "Sorry! We currently deliver only to the listed areas. Please call us for special delivery arrangements.",
       );
       return;
     }
@@ -148,7 +148,7 @@ const Buy = () => {
         orderData,
         {
           withCredentials: true,
-        }
+        },
       );
 
       if (res.data.success) {
