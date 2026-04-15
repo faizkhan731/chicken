@@ -234,12 +234,12 @@ app.post("/api/order", (req, res) => {
   } = req.body;
 
   // Updated validation to include deliveryLocation
-  if (!username || !phone_number || !productName || !quantity || !deliveryLocation) {
-    return res.status(400).json({ error: "Missing required fields" });
-  }
-  //  if (!phone_number || !productName || !quantity || !deliveryLocation) {
+  // if (!username || !phone_number || !productName || !quantity || !deliveryLocation) {
   //   return res.status(400).json({ error: "Missing required fields" });
   // }
+   if (!phone_number || !productName || !quantity || !deliveryLocation) {
+    return res.status(400).json({ error: "Missing required fields" });
+  }
 
   // Updated SQL to include delivery_location
   const sql = `INSERT INTO orders 
