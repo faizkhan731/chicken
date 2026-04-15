@@ -234,7 +234,10 @@ app.post("/api/order", (req, res) => {
   } = req.body;
 
   // Updated validation to include deliveryLocation
-  if (!username || !phone_number || !productName || !quantity || !deliveryLocation) {
+  // if (!username || !phone_number || !productName || !quantity || !deliveryLocation) {
+  //   return res.status(400).json({ error: "Missing required fields" });
+  // }
+   if (!phone_number || !productName || !quantity || !deliveryLocation) {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
@@ -388,109 +391,109 @@ app.get("/api/orders/:phone", (req, res) => {
 
 
 
-app.post("/api/order", (req, res) => {
-  const {
-    username,
-    phone_number,
-    productName,
-    quantity,
-    price,
-    totalAmount,
-    payment_method,
-    deliveryLocation
-  } = req.body;
+// app.post("/api/order", (req, res) => {
+//   const {
+//     username,
+//     phone_number,
+//     productName,
+//     quantity,
+//     price,
+//     totalAmount,
+//     payment_method,
+//     deliveryLocation
+//   } = req.body;
 
-  if (!username || !phone_number || !productName || !quantity || !deliveryLocation) {
-    return res.status(400).json({ error: "Missing required fields" });
-  }
+//   if (!username || !phone_number || !productName || !quantity || !deliveryLocation) {
+//     return res.status(400).json({ error: "Missing required fields" });
+//   }
 
-  const sql = `INSERT INTO orders 
-    (username, phone_number, product_name, quantity, price, total_amount, payment_method, delivery_location)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+//   const sql = `INSERT INTO orders 
+//     (username, phone_number, product_name, quantity, price, total_amount, payment_method, delivery_location)
+//     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
 
-  const values = [username, phone_number, productName, quantity, price, totalAmount, payment_method, deliveryLocation];
+//   const values = [username, phone_number, productName, quantity, price, totalAmount, payment_method, deliveryLocation];
 
-  db.query(sql, values, async (err, result) => {
-    if (err) {
-      console.error("DB error:", err.sqlMessage || err.message);
-      return res.status(500).json({ error: "Database error" });
-    }
+//   db.query(sql, values, async (err, result) => {
+//     if (err) {
+//       console.error("DB error:", err.sqlMessage || err.message);
+//       return res.status(500).json({ error: "Database error" });
+//     }
 
-    // 🔧 STEP 3: Better formatted WhatsApp message (avoid special characters that might cause issues)
-    const orderDetailsMessage = `NEW ORDER ALERT!
+//     // 🔧 STEP 3: Better formatted WhatsApp message (avoid special characters that might cause issues)
+//     const orderDetailsMessage = `NEW ORDER ALERT!
 
-Customer: ${username}
-Phone: ${phone_number}
-Product: ${productName}
-Quantity: ${quantity} kg
-Unit Price: Rs ${price}
-Total Amount: Rs ${totalAmount}
-Payment: ${payment_method}
-Delivery Area: ${deliveryLocation}
-Order Time: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
+// Customer: ${username}
+// Phone: ${phone_number}
+// Product: ${productName}
+// Quantity: ${quantity} kg
+// Unit Price: Rs ${price}
+// Total Amount: Rs ${totalAmount}
+// Payment: ${payment_method}
+// Delivery Area: ${deliveryLocation}
+// Order Time: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
 
-Please prepare and deliver ASAP!`;
+// Please prepare and deliver ASAP!`;
 
-    try {
-      // 🔧 STEP 4: Enhanced WhatsApp sending with detailed logging
-      console.log("🔍 Attempting to send WhatsApp message...");
-      console.log("📱 From:", process.env.TWILIO_WHATSAPP_NUMBER || "whatsapp:+14155238886");
-      console.log("📱 To:", process.env.MY_WHATSAPP_NUMBER);
-      console.log("📝 Message length:", orderDetailsMessage.length);
+//     try {
+//       // 🔧 STEP 4: Enhanced WhatsApp sending with detailed logging
+//       console.log("🔍 Attempting to send WhatsApp message...");
+//       console.log("📱 From:", process.env.TWILIO_WHATSAPP_NUMBER || "whatsapp:+14155238886");
+//       console.log("📱 To:", process.env.MY_WHATSAPP_NUMBER);
+//       console.log("📝 Message length:", orderDetailsMessage.length);
 
-      const whatsappMessage = await twilioClient.messages.create({
-        from: process.env.TWILIO_WHATSAPP_NUMBER || "whatsapp:+14155238886", // Sandbox number
-        to: process.env.MY_WHATSAPP_NUMBER, // Your WhatsApp number with whatsapp: prefix
-        body: orderDetailsMessage.trim(),
-      });
+//       const whatsappMessage = await twilioClient.messages.create({
+//         from: process.env.TWILIO_WHATSAPP_NUMBER || "whatsapp:+14155238886", // Sandbox number
+//         to: process.env.MY_WHATSAPP_NUMBER, // Your WhatsApp number with whatsapp: prefix
+//         body: orderDetailsMessage.trim(),
+//       });
 
-      console.log("✅ WhatsApp message sent successfully!");
-      console.log("📧 Message SID:", whatsappMessage.sid);
-      console.log("📊 Message Status:", whatsappMessage.status);
+//       console.log("✅ WhatsApp message sent successfully!");
+//       console.log("📧 Message SID:", whatsappMessage.sid);
+//       console.log("📊 Message Status:", whatsappMessage.status);
 
-    } catch (whatsAppError) {
-      console.error("❌ WhatsApp Error Details:");
-      console.error("Error Code:", whatsAppError.code);
-      console.error("Error Message:", whatsAppError.message);
-      console.error("Error Status:", whatsAppError.status);
-      console.error("Full Error:", whatsAppError);
-    }
+//     } catch (whatsAppError) {
+//       console.error("❌ WhatsApp Error Details:");
+//       console.error("Error Code:", whatsAppError.code);
+//       console.error("Error Message:", whatsAppError.message);
+//       console.error("Error Status:", whatsAppError.status);
+//       console.error("Full Error:", whatsAppError);
+//     }
 
-    // SMS as backup (working fine)
-    try {
-      const smsMessage = `NEW ORDER: ${username} (${phone_number}) ordered ${quantity}kg ${productName} for Rs${totalAmount}. Delivery: ${deliveryLocation}. Payment: ${payment_method}`;
+//     // SMS as backup (working fine)
+//     try {
+//       const smsMessage = `NEW ORDER: ${username} (${phone_number}) ordered ${quantity}kg ${productName} for Rs${totalAmount}. Delivery: ${deliveryLocation}. Payment: ${payment_method}`;
       
-      await twilioClient.messages.create({
-        body: smsMessage,
-        from: process.env.TWILIO_PHONE_NUMBER,
-        to: process.env.MY_PHONE_NUMBER,
-      });
-      console.log("✅ SMS sent successfully!");
-    } catch (smsErr) {
-      console.error("❌ SMS failed:", smsErr.message);
-    }
+//       await twilioClient.messages.create({
+//         body: smsMessage,
+//         from: process.env.TWILIO_PHONE_NUMBER,
+//         to: process.env.MY_PHONE_NUMBER,
+//       });
+//       console.log("✅ SMS sent successfully!");
+//     } catch (smsErr) {
+//       console.error("❌ SMS failed:", smsErr.message);
+//     }
 
-    // Voice call
-    try {
-      const voiceMessage = `Hello, you have received a new order. Customer name: ${username}. Phone number: ${phone_number}. Product: ${productName}. Quantity: ${quantity} kilograms. Total amount: ${totalAmount} rupees. Delivery location: ${deliveryLocation}. Please prepare the order immediately.`;
+//     // Voice call
+//     try {
+//       const voiceMessage = `Hello, you have received a new order. Customer name: ${username}. Phone number: ${phone_number}. Product: ${productName}. Quantity: ${quantity} kilograms. Total amount: ${totalAmount} rupees. Delivery location: ${deliveryLocation}. Please prepare the order immediately.`;
 
-      await twilioClient.calls.create({
-        twiml: `<Response><Say voice="alice" rate="0.8">${voiceMessage}</Say></Response>`,
-        to: process.env.MY_PHONE_NUMBER,
-        from: process.env.TWILIO_PHONE_NUMBER,
-      });
-      console.log("✅ Voice call initiated!");
-    } catch (callError) {
-      console.error("❌ Voice call failed:", callError.message);
-    }
+//       await twilioClient.calls.create({
+//         twiml: `<Response><Say voice="alice" rate="0.8">${voiceMessage}</Say></Response>`,
+//         to: process.env.MY_PHONE_NUMBER,
+//         from: process.env.TWILIO_PHONE_NUMBER,
+//       });
+//       console.log("✅ Voice call initiated!");
+//     } catch (callError) {
+//       console.error("❌ Voice call failed:", callError.message);
+//     }
 
-    res.json({ 
-      success: true, 
-      orderId: result.insertId,
-      message: "Order placed successfully!"
-    });
-  });
-});
+//     res.json({ 
+//       success: true, 
+//       orderId: result.insertId,
+//       message: "Order placed successfully!"
+//     });
+//   });
+// });
 
 
 
