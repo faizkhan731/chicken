@@ -144,7 +144,7 @@ const Buy = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/order",
+        "https://chicken-1-hee6.onrender.com/api/order",
         orderData,
         {
           withCredentials: true,
