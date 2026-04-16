@@ -396,7 +396,7 @@ const Buy = () => {
             </button>
             <p className="text-gray-500 text-xs sm:text-sm px-4">
               Need help? Contact us at kfaiz3361@gmail.com or call
-              +91-9125529669
+              +91-7068761143
             </p>
           </div>
         </div>
