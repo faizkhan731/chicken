@@ -57,7 +57,7 @@ const Footer = () => {
           </h3>
           <ul className="space-y-3 text-sm">
             <li>Email: kfaiz3361@gmail.com</li>
-            <li>Phone: +91 9125529669</li>
+            <li>Phone: +91 7068761143</li>
             <li>Address: Nadi Chandauli, India</li>
           </ul>
         </div>

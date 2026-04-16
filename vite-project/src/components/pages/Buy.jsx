@@ -73,7 +73,7 @@ const Buy = () => {
           const orderTime = new Date(order.orderTime).getTime();
           const now = Date.now();
           const diffSeconds = Math.floor(
-            (1 * 60 * 1000 - (now - orderTime)) / 1000,
+            (30 * 60 * 1000 - (now - orderTime)) / 1000,
           );
           if (diffSeconds > 0) {
             setCountdown(diffSeconds);
@@ -159,7 +159,7 @@ const Buy = () => {
         });
         setShowConfirmation(true);
         setOrderStatus("processing");
-        setCountdown(1 * 60);
+        setCountdown(30 * 60);
       } else {
         alert("Failed to place order");
       }
